@@ -6,16 +6,16 @@ resource "aws_key_pair" "keypair" {
 }
 
 
-# Create a bastion host (Jump Server) in a public subnet
-# resource "aws_instance" "bastion" {
-# # Defining an AWS resource
-#   ami                         = "ami-05b10e08d247fb927" # Amazon Linux AMI ID
-#   instance_type               = "t2.micro"
-#   key_name                    = aws_key_pair.keypair.key_name
-#   subnet_id                   = var.bastion_subnet # Place in the second public subnet
-#   associate_public_ip_address = true                         # Assign a public IP
-#   security_groups             = [var.bastion_sg]
-# }
+#Create a bastion host (Jump Server) in a public subnet
+resource "aws_instance" "bastion" {
+# Defining an AWS resource
+  ami                         = "ami-05b10e08d247fb927" # Amazon Linux AMI ID
+  instance_type               = "t2.micro"
+  key_name                    = aws_key_pair.keypair.key_name
+  subnet_id                   = var.bastion_subnet # Place in the second public subnet
+  associate_public_ip_address = true                         # Assign a public IP
+  vpc_security_group_ids   = [var.bastion_sg]
+}
 
 
 # Define a launch template for auto scaling
